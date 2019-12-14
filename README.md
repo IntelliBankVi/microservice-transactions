@@ -1,7 +1,7 @@
 # Transactions Operator
 <h1 align="center">
   <br>
-  <a href="https://github.com/SaifRehman/mongo-rest-operator"><img src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fjanakirammsv%2Ffiles%2F2018%2F05%2Frh-os.jpg" alt="openshift" width="IBM"></a>
+ 
   <br>
       Mongorest operator for Openshift
   <br>
@@ -23,7 +23,7 @@ Allows you to develop mongo microservices just by defining the yamls on a opensh
 
 1. clone the repo
 ```
-$ git clone https://github.com/SaifRehman/mongo-rest-operator.git
+$ git clone https://github.com/IntelliBankVi/microservice-transactions.git
 ```
 2. install ***serviceaccount***, ***rolebinding***, ***role***, ***crd***, and ***operator***
 ```
@@ -39,23 +39,23 @@ $ oc apply -f deploy/crds/mongorest_v1alpha1_mongorest_crd.yaml
 apiVersion: mongorest.ibm.com/v1alpha1
 kind: Mongorest
 metadata:
-  name: reservationmicroservice
+  name: transactionmicroservice
 spec:
   replicaCount: 3 #number of replica needed
-  namespace: "kubeapp"
+  namespace: "anchal"
   metadata:
-    name: reservation-microservice
+    name: transaction-microservice
   mongodb: 
-    host: "mongodb.kubeapp" # connection info of mongodb
+    host: "mongodb.anchal" # connection info of mongodb
     username: "YWRtaW4="
     password: "YWRtaW4="
-    endpoint: "reservation"
+    endpoint: "transaction"
     db: "sampledb"
-    schema: "Reservation"
-    model: "{'firstname':'String','lastname':'String','uid':'String'}" # model of your mongo schema
+    schema: "Transaction"
+    model: "{'creditcardnumber':'Number','transactiondate':'String','transactiontime':'String','vendor':'String','vendortype':'String' ,'totalprice':'Number'}" # model of your mongo schema
   buildconfig: 
-    imagename: "reservation-microservice:latest"
+    imagename: "transaction-microservice:latest"
   routes:
-    host: "reservation-microservice-kubeapp.apps.192.168.64.21.nip.io"  # application route
+    host: "transaction-microservice-anchal.apps.192.168.64.21.nip.io"  # application route
 ```
 4. Apply these YAML configuration
