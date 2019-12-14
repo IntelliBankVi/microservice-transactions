@@ -1,0 +1,98 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: null
+  name: mongo-operator
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - endpoints
+  - events
+  - configmaps
+  - secrets
+  - imagestreams
+  - routes
+  - buildconfigs
+  - deploymentconfigs
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+- apiGroups:
+  - "route.openshift.io"
+  resources:
+  - routes
+  - routes/custom-host
+  verbs:
+  - '*'
+- apiGroups:
+  - "apps.openshift.io"
+  resources:
+  - deploymentconfigs
+  verbs:
+  - '*'
+- apiGroups:
+  - "build.openshift.io"
+  resources:
+  - buildconfigs
+  verbs:
+  - '*'
+- apiGroups:
+  - "image.openshift.io"
+  resources:
+  - imagestreams
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  - imagestreams
+  - routes
+  - buildconfigs
+  - deploymentconfigs
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - servicemonitors
+  verbs:
+  - get
+  - create
+- apiGroups:
+  - apps
+  resourceNames:
+  - mongo-operator
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - mongorest.ibm.com
+  resources:
+  - '*'
+  verbs:
+  - '*'

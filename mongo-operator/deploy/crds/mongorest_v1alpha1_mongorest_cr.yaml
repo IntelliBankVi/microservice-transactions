@@ -1,0 +1,21 @@
+apiVersion: mongorest.ibm.com/v1alpha1
+kind: Mongorest
+metadata:
+  name: reservationmicroservice
+spec:
+  replicaCount: 3
+  namespace: "cumulusbank"
+  metadata:
+    name: reservation-microservice
+  mongodb: 
+    host: "mongodb.cumulusbank"
+    username: "YWRtaW4="
+    password: "YWRtaW4="
+    endpoint: "reservation"
+    db: "sampledb"
+    schema: "Reservation"
+    model: "{'firstname':'String','lastname':'String','uid':'String'}"
+  buildconfig: 
+    imagename: "reservation-microservice:latest"
+  routes:
+    host: "reservation-microservice-cumulusbank.apps.192.168.64.27.nip.io"
